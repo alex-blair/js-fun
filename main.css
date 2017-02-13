@@ -1,0 +1,22 @@
+.background {
+  background-color: #f0b7b9;
+}
+
+#bunny-img {
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+}
+
+#hole {
+  justify-content: center;
+  align-items: center;
+  height: 14rem;
+}
+
+.text {
+  padding-left: 3rem;
+  text-align: center;
+  color: white;
+  font-family: 'Barrio', cursive;
+}
