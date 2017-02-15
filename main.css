@@ -1,11 +1,68 @@
-.background {
+/*Sections*/
+
+.main-box {
+  padding: 2rem 0rem 2rem;
+  text-align: center;
+  margin-bottom: 3rem;
+
+}
+
+.images-box {
+  padding: 2rem 0 5rem 0;
+}
+
+/*Background colors*/
+
+.color-1 {
   background-color: #f0b7b9;
 }
+
+.color-2 {
+  background-color: #FF9EA0;
+}
+
+.color-3 {
+  background-color: #FFA79E;
+}
+
+.color-4 {
+  background-color: #FFDF9E;
+}
+
+.color-5 {
+  background-color: #A1B8B6;
+}
+
+.color-6 {
+  background-color: #729592;
+}
+
+.color-7 {
+  background-color: #507F7C;
+}
+
+.color-8 {
+  background-color: #336A66;
+}
+
+.color-9 {
+  background-color: #3D4F73;
+}
+
+.color-10 {
+  background-color: #231C3A;
+}
+
+/*Images*/
 
 #bunny-img {
   justify-content: center;
   align-items: center;
   width: 60%;
+}
+
+.smaller {
+  size: 20%;
 }
 
 #hole {
@@ -14,9 +71,19 @@
   height: 14rem;
 }
 
+/*Text*/
+
 .text {
-  padding-left: 3rem;
+  padding-left: 0rem;
   text-align: center;
   color: white;
   font-family: 'Barrio', cursive;
+}
+
+/*Button*/
+
+button {
+  border: auto;
+  background-color: white;
+  font: 'Barrio', cursive;
 }
