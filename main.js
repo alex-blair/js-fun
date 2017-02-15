@@ -1,16 +1,26 @@
 const state = {
   clickTally: 0,
   color: "",
+  quote: "",
   bunny: "#bunny-img"
 }
 
+const animation = {
+  finish: "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend",
+  bounce: "animated bounce",
+  slideOutRight: "animated slideOutRight"
+}
+
 $(document).ready(function() {
-  $("#btn").click(function() {
+  $("#btn").on("click", function() {
     state.clickTally = state.clickTally + 1
     let prevColor = state.color
     let newColor = pickColor(state.clickTally)
+    let newQuote = pickQuote(state.clickTally)
     bounceBunny(state.bunny)
+    // exitBunny(state.bunny)
     changeColor(prevColor, newColor)
+    changeQuote(newQuote)
     logColor(newColor)
   });
 });
@@ -23,7 +33,7 @@ function logColor (newColor) {
 // Use clickTally to determine the background color
 function pickColor(clickTally) {
   let newColor = "";
-  const clickTallyLoopCounter = clickTally % 10
+  let clickTallyLoopCounter = clickTally % 10
   switch(clickTallyLoopCounter) {
     case 0:
       newColor = "color-1"
@@ -62,16 +72,75 @@ function pickColor(clickTally) {
   return newColor;
 }
 
+// Use clickTally to determine the quote
+function pickQuote(clickTally) {
+  let newQuote = "";
+  let clickTallyLoopQuote = clickTally % 10
+  switch(clickTallyLoopQuote) {
+    case 0:
+      newQuote = "Would you like an adventure now, or shall we have our tea first?"
+      break;
+    case 1:
+      newQuote = "Down, down, down..."
+      break;
+    case 2:
+      newQuote = "How brave they'll all think me at home!"
+      break;
+    case 3:
+      newQuote = "Curiouser and curiouser!"
+      break;
+    case 4:
+      newQuote = "Which way? Which way?"
+      break;
+    case 5:
+      newQuote = "How queer everything is to-day!"
+      break;
+    case 6:
+      newQuote = "Who in the world am I? Ah, that's the great puzzle!"
+      break;
+    case 7:
+      newQuote = "It's no use going back to yesterday because I was a different bunny then."
+      break;
+    case 8:
+      newQuote = "Quick, now!"
+      break;
+    case 9:
+      newQuote = "That <em>was</em> a narrow escape!"
+      break;
+    default:
+      newQuote = "Would you like an adventure now, or shall we have our tea first?"
+      break;
+  }
+  return newQuote;
+}
+
 // Change the background color based on the class returned by pickColor function
 function changeColor(prevColor, newColor) {
   $(".main-box").removeClass(prevColor)
   $(".main-box").addClass(newColor)
 }
 
-// Make the bunny bounce
-function bounceBunny(bunny) {
-  let originalBunny = $(bunny)
-  let cloneBunny = originalBunny.clone(true)
-  originalBunny.before(cloneBunny)
-  originalBunny.remove()
+// Change the quote based on the quote returned by pickQuote function
+function changeQuote(newQuote) {
+  $(".quote-text").html(newQuote)
 }
+
+function bounceBunny(bunny) {
+  $(bunny).addClass(animation.bounce).one(animation.finish, function() {
+    $(this).removeClass(animation.bounce)
+  })
+}
+
+
+// // Make the bunny exit
+// function exitBunny(bunny) {
+//   $(bunny).addClass("animated slideOutRight")
+// }
+
+// // Make the bunny bounce
+// function bounceBunny(bunny) {
+//   let originalBunny = $(bunny)
+//   let cloneBunny = originalBunny.clone(true)
+//   originalBunny.before(cloneBunny)
+//   originalBunny.remove()
+// }
