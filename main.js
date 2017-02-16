@@ -10,20 +10,28 @@ const animation = {
   bounce: "animated bounce",
   bounceInDown: "animated bounceInDown",
   bounceOutDown: "animated bounceOutDown",
+  bounceInLeft: "animated bounceInLeft",
+  bounceOutRight: "animated bounceOutRight",
 }
 
 $(document).ready(function() {
-  $("#btn-1").on("click", function() {
+  $("#btn").on("click", function() {
     // state.clickTally = state.clickTally + 1
     // let prevColor = state.color
     // let newColor = pickColor(state.clickTally)
     // let newQuote = pickQuote(state.clickTally)
-    bounceBunny(state.bunny)
+    startAdventure()
     // changeColor(prevColor, newColor)
     // changeQuote(newQuote)
     // logColor(newColor)
   });
 });
+
+function startAdventure() {
+  bunnyMove()
+
+}
+
 
 // Log the current background color for future use
 function logColor (newColor) {
@@ -156,9 +164,42 @@ function pickImg(clickTally) {
   return newImg;
 }
 
-// Make hidden images appear
-function appear(img-name) {
-  $(img-name).removeClass("hidden").addClass("animated fadeIn")
+// Check if it's time to reveal background images
+function revealImgs () {
+  if (state.clickTally === 8) {
+    appear()
+  }
+}
+
+// Make hidden background images appear
+function appear() {
+  for (var i = 0; i < 7; i++) {
+    $("#hidden-img-" + i).removeClass("hidden").addClass("animated fadeIn")
+  }
+}
+
+// Check if it's time to hide background images
+function hideImgs () {
+  if (state.clickTally === 9) {
+    hide()
+  }
+}
+
+// Hide background images
+function hide() {
+  for (var i = 0; i < 7; i++) {
+    $("#hidden-img-" + i).removeClass("animated fadeIn").addClass("hidden")
+  }
+}
+
+// Check if it's time to change the button
+function changeBtn () {
+  if (state.clickTally === 9) {
+    $("#btn").removeClass("btn-1").addClass("btn-2").html("Time for tea")
+  }
+  else if (state.clickTally === 10) {
+    $("#btn").removeClass("btn-2").addClass("btn-1").html("Down the rabbit hole!")
+  }
 }
 
 // Change the background color based on the class returned by pickColor function
@@ -177,22 +218,52 @@ function changeImg(newImg) {
   $("#bunny-img").attr("src", newImg)
 }
 
-// Make the bunny bounce
+// Movement ***************************************************
+
+// Define how the bunny will move
+function bunnyMove(){
+  if (state.clickTally === 9) {
+    runBunny(state.bunny)
+  }
+  else {
+    bounceBunny(state.bunny)
+  }
+}
+
+// Bounce movement
 function bounceBunny(bunny) {
   $(bunny).addClass(animation.bounceOutDown).one(animation.finish, function() {
     $(this).removeClass(animation.bounceOutDown)
-    state.clickTally = state.clickTally + 1
-    let prevColor = state.color
-    let newColor = pickColor(state.clickTally)
-    let newQuote = pickQuote(state.clickTally)
-    let newImg = pickImg(state.clickTally)
-    changeColor(prevColor, newColor)
-    changeQuote(newQuote)
-    changeImg(newImg)
-    appear()
-    logColor(newColor)
+    updateBackground()
     $(bunny).addClass(animation.bounceInDown).one(animation.finish, function() {
       $(this).removeClass(animation.bounceInDown)
     })
   })
+}
+
+// Running movement
+function runBunny(bunny) {
+  $(bunny).addClass(animation.bounceOutRight).one(animation.finish, function() {
+    $(this).removeClass(animation.bounceOutRight)
+    updateBackground()
+    $(bunny).addClass(animation.bounceInLeft).one(animation.finish, function() {
+      $(this).removeClass(animation.bounceInLeft)
+    })
+  })
+}
+
+// Update background
+function updateBackground() {
+  state.clickTally = state.clickTally + 1
+  let prevColor = state.color
+  let newColor = pickColor(state.clickTally)
+  let newQuote = pickQuote(state.clickTally)
+  let newImg = pickImg(state.clickTally)
+  changeBtn()
+  hideImgs()
+  changeColor(prevColor, newColor)
+  changeQuote(newQuote)
+  changeImg(newImg)
+  revealImgs()
+  logColor(newColor)
 }
