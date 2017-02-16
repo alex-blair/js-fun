@@ -8,20 +8,24 @@ const state = {
 const animation = {
   finish: "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend",
   bounce: "animated bounce",
-  slideOutRight: "animated slideOutRight"
+  bounceOutRight: "animated bounceOutRight",
+  bounceInLeft: "animated bounceInLeft",
+  zoomOutDown: "animated zoomOutDown",
+  zoomInDown: "animated zoomInDown",
+  bounceInDown: "animated bounceInDown",
+  bounceOutDown: "animated bounceOutDown",
 }
 
 $(document).ready(function() {
   $("#btn").on("click", function() {
-    state.clickTally = state.clickTally + 1
-    let prevColor = state.color
-    let newColor = pickColor(state.clickTally)
-    let newQuote = pickQuote(state.clickTally)
+    // state.clickTally = state.clickTally + 1
+    // let prevColor = state.color
+    // let newColor = pickColor(state.clickTally)
+    // let newQuote = pickQuote(state.clickTally)
     bounceBunny(state.bunny)
-    // exitBunny(state.bunny)
-    changeColor(prevColor, newColor)
-    changeQuote(newQuote)
-    logColor(newColor)
+    // changeColor(prevColor, newColor)
+    // changeQuote(newQuote)
+    // logColor(newColor)
   });
 });
 
@@ -125,19 +129,31 @@ function changeQuote(newQuote) {
   $(".quote-text").html(newQuote)
 }
 
+// Make the bunny bounce
 function bounceBunny(bunny) {
-  $(bunny).addClass(animation.bounce).one(animation.finish, function() {
-    $(this).removeClass(animation.bounce)
+  $(bunny).addClass(animation.bounceOutDown).one(animation.finish, function() {
+    $(this).removeClass(animation.bounceOutDown)
+    state.clickTally = state.clickTally + 1
+    let prevColor = state.color
+    let newColor = pickColor(state.clickTally)
+    let newQuote = pickQuote(state.clickTally)
+    changeColor(prevColor, newColor)
+    changeQuote(newQuote)
+    logColor(newColor)
+    $(bunny).addClass(animation.bounceInDown).one(animation.finish, function() {
+      $(this).removeClass(animation.bounceInDown)
+    })
   })
 }
 
+// Make bunny exit
 
 // // Make the bunny exit
 // function exitBunny(bunny) {
 //   $(bunny).addClass("animated slideOutRight")
 // }
 
-// // Make the bunny bounce
+// Make the bunny bounce
 // function bounceBunny(bunny) {
 //   let originalBunny = $(bunny)
 //   let cloneBunny = originalBunny.clone(true)
