@@ -8,10 +8,6 @@ const state = {
 const animation = {
   finish: "webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend",
   bounce: "animated bounce",
-  bounceOutRight: "animated bounceOutRight",
-  bounceInLeft: "animated bounceInLeft",
-  zoomOutDown: "animated zoomOutDown",
-  zoomInDown: "animated zoomInDown",
   bounceInDown: "animated bounceInDown",
   bounceOutDown: "animated bounceOutDown",
 }
@@ -118,6 +114,48 @@ function pickQuote(clickTally) {
   return newQuote;
 }
 
+// Use clickTally to determine the bunny image
+function pickImg(clickTally) {
+  let newImg = "";
+  let clickTallyLoopImg = clickTally % 10
+  switch(clickTallyLoopImg) {
+    case 0:
+      newImg = "bunny.png"
+      break;
+    case 1:
+      newImg = "bunny.png"
+      break;
+    case 2:
+      newImg = "bunny.png"
+      break;
+    case 3:
+      newImg = "bunny-mon.png"
+      break;
+    case 4:
+      newImg = "bunny-bow.png"
+      break;
+    case 5:
+      newImg = "bunny-nose.png"
+      break;
+    case 6:
+      newImg = "bunny-hat.png"
+      break;
+    case 7:
+      newImg = "bunny-coat.png"
+      break;
+    case 8:
+      newImg = "bunny-coat.png"
+      break;
+    case 9:
+      newImg = "bunny.png"
+      break;
+    default:
+      newImg = "bunny.png"
+      break;
+  }
+  return newImg;
+}
+
 // Change the background color based on the class returned by pickColor function
 function changeColor(prevColor, newColor) {
   $(".main-box").removeClass(prevColor)
@@ -129,6 +167,11 @@ function changeQuote(newQuote) {
   $(".quote-text").html(newQuote)
 }
 
+// Change the imaged based on the quote returned by pickImg function
+function changeImg(newImg) {
+  $("#bunny-img").attr("src", newImg)
+}
+
 // Make the bunny bounce
 function bounceBunny(bunny) {
   $(bunny).addClass(animation.bounceOutDown).one(animation.finish, function() {
@@ -137,26 +180,13 @@ function bounceBunny(bunny) {
     let prevColor = state.color
     let newColor = pickColor(state.clickTally)
     let newQuote = pickQuote(state.clickTally)
+    let newImg = pickImg(state.clickTally)
     changeColor(prevColor, newColor)
     changeQuote(newQuote)
+    changeImg(newImg)
     logColor(newColor)
     $(bunny).addClass(animation.bounceInDown).one(animation.finish, function() {
       $(this).removeClass(animation.bounceInDown)
     })
   })
 }
-
-// Make bunny exit
-
-// // Make the bunny exit
-// function exitBunny(bunny) {
-//   $(bunny).addClass("animated slideOutRight")
-// }
-
-// Make the bunny bounce
-// function bounceBunny(bunny) {
-//   let originalBunny = $(bunny)
-//   let cloneBunny = originalBunny.clone(true)
-//   originalBunny.before(cloneBunny)
-//   originalBunny.remove()
-// }
