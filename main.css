@@ -1,10 +1,9 @@
 /*Sections*/
 
 .main-box {
-  /*padding: 2rem 0rem 2rem;*/
+  margin-top: 2rem;
   text-align: center;
   /*margin-bottom: 3rem;*/
-  height: 600px;
   padding: 0;
   margin: 0;
   display: flex;
@@ -12,8 +11,16 @@
   justify-content: center;
 }
 
+.title-section {
+  margin-top: 2rem;
+}
+
+/*.image-section {
+
+}*/
+
 .images-box {
-  padding: 2rem 0 5rem 0;
+  padding: 1rem 0 .5rem 0;
 }
 
 .text-box {
@@ -73,14 +80,43 @@
   /*-webkit-animation-iteration-count: 1;*/
 }
 
+#hidden-img-1 {
+   -webkit-animation-duration: 1s;
+   -webkit-animation-delay: 2s;
+ }
+
+#hidden-img-2 {
+  -webkit-animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+}
+
+#hidden-img-3 {
+  -webkit-animation-duration: 1s;
+  -webkit-animation-delay: 1.25s;
+}
+
+#hidden-img-4 {
+  -webkit-animation-duration: 1s;
+  -webkit-animation-delay: 1.5s;
+}
+
+#hidden-img-5 {
+  -webkit-animation-duration: 1s;
+  -webkit-animation-delay: 1.75s;
+}
+
+#hidden-img-6 {
+  -webkit-animation-duration: 1s;
+  -webkit-animation-delay: .5s;
+}
+
 .smaller {
   size: 20%;
 }
 
-#hole {
-  justify-content: center;
-  align-items: center;
-  height: 14rem;
+.hidden {
+  visibility: hidden;
+  -webkit-animation-duration: 2s;
 }
 
 /*Text*/
@@ -100,8 +136,22 @@
 
 /*Button*/
 
-button {
+#btn-1 {
+  border: auto;
+  background-color: black;
+  font: 'Barrio', cursive;
+  color: white;
+  border-color: black;
+  height: 11rem;
+  width: 22rem;
+  -moz-border-radius: 100px / 50px;
+  -webkit-border-radius: 100px / 50px;
+}
+
+#btn-2 {
   border: auto;
   background-color: white;
   font: 'Barrio', cursive;
+  color: black;
+  border-color: black;
 }

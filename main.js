@@ -13,7 +13,7 @@ const animation = {
 }
 
 $(document).ready(function() {
-  $("#btn").on("click", function() {
+  $("#btn-1").on("click", function() {
     // state.clickTally = state.clickTally + 1
     // let prevColor = state.color
     // let newColor = pickColor(state.clickTally)
@@ -156,6 +156,11 @@ function pickImg(clickTally) {
   return newImg;
 }
 
+// Make hidden images appear
+function appear(img-name) {
+  $(img-name).removeClass("hidden").addClass("animated fadeIn")
+}
+
 // Change the background color based on the class returned by pickColor function
 function changeColor(prevColor, newColor) {
   $(".main-box").removeClass(prevColor)
@@ -184,6 +189,7 @@ function bounceBunny(bunny) {
     changeColor(prevColor, newColor)
     changeQuote(newQuote)
     changeImg(newImg)
+    appear()
     logColor(newColor)
     $(bunny).addClass(animation.bounceInDown).one(animation.finish, function() {
       $(this).removeClass(animation.bounceInDown)
