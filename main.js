@@ -277,7 +277,7 @@ function leafMove () {
 }
 
 function leafLeft() {
-  $(".leaf").removeClass("hidden").addClass(animation.fadeOutLeftBig).one(animation.finish, function() {
+  $("#leaf-lt").removeClass("hidden").addClass(animation.fadeOutLeftBig).one(animation.finish, function() {
     $(this).removeClass(animation.fadeOutLeftBig).addClass("hidden")
   })
 }
