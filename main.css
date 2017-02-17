@@ -15,10 +15,6 @@
   margin-top: 2rem;
 }
 
-/*.image-section {
-
-}*/
-
 .images-box {
   padding: 2rem 0 .5rem 0;
 }
@@ -116,13 +112,20 @@
   width: 45%;
 }
 
+#leaves-lt {
+  -webkit-animation-duration: 2s;
+}
+
+#leaves-rt {
+  -webkit-animation-duration: 2s;
+}
+
 .smaller {
   size: 20%;
 }
 
 .hidden {
   visibility: hidden;
-  -webkit-animation-duration: 2s;
 }
 
 /*Text*/

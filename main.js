@@ -1,3 +1,5 @@
+// Define global variables ****************************************************
+
 const state = {
   clickTally: 0,
   color: "",
@@ -12,29 +14,27 @@ const animation = {
   bounceOutDown: "animated bounceOutDown",
   bounceInLeft: "animated bounceInLeft",
   bounceOutRight: "animated bounceOutRight",
+  fadeOutUpBig: "animated fadeOutUpBig",
+  fadeOutLeftBig: "animated fadeOutLeftBig",
 }
+
+// On click events ************************************************************
 
 $(document).ready(function() {
   $("#btn").on("click", function() {
-    // state.clickTally = state.clickTally + 1
-    // let prevColor = state.color
-    // let newColor = pickColor(state.clickTally)
-    // let newQuote = pickQuote(state.clickTally)
-    startAdventure()
-    // changeColor(prevColor, newColor)
-    // changeQuote(newQuote)
-    // logColor(newColor)
+    bunnyMove()
   });
 });
 
-function startAdventure() {
-  bunnyMove()
-
+// Click Tally ****************************************************************
+function updateTally() {
+  state.clickTally = state.clickTally + 1
 }
 
+// Background colour **********************************************************
 
 // Log the current background color for future use
-function logColor (newColor) {
+function updateColor (newColor) {
   state.color = newColor
 }
 
@@ -80,6 +80,14 @@ function pickColor(clickTally) {
   return newColor;
 }
 
+// Change the background color based on the class returned by pickColor function
+function changeColor(prevColor, newColor) {
+  $(".main-box").removeClass(prevColor)
+  $(".main-box").addClass(newColor)
+}
+
+// Quote **********************************************************************
+
 // Use clickTally to determine the quote
 function pickQuote(clickTally) {
   let newQuote = "";
@@ -121,6 +129,13 @@ function pickQuote(clickTally) {
   }
   return newQuote;
 }
+
+// Change the quote based on the quote returned by pickQuote function
+function changeQuote(newQuote) {
+  $(".quote-text").html(newQuote)
+}
+
+// Images *********************************************************************
 
 // Use clickTally to determine the bunny image
 function pickImg(clickTally) {
@@ -164,6 +179,17 @@ function pickImg(clickTally) {
   return newImg;
 }
 
+// Change the image based on the image returned by pickImg function
+function changeImg(newImg) {
+  $("#bunny-img").attr("src", newImg)
+}
+
+// // Show leaf images when bunny is falling
+// function leafAppear () {
+//   $("#leaves-lt").removeClass("hidden").addClass("animated fadeOutUp")
+//   $("#leaves-rt")
+// }
+
 // Check if it's time to reveal background images
 function revealImgs () {
   if (state.clickTally === 8) {
@@ -192,7 +218,9 @@ function hide() {
   }
 }
 
-// Check if it's time to change the button
+// Buttons ********************************************************************
+
+// Change the style of the button
 function changeBtn () {
   if (state.clickTally === 9) {
     $("#btn").removeClass("btn-1").addClass("btn-2").html("Time for tea")
@@ -202,23 +230,7 @@ function changeBtn () {
   }
 }
 
-// Change the background color based on the class returned by pickColor function
-function changeColor(prevColor, newColor) {
-  $(".main-box").removeClass(prevColor)
-  $(".main-box").addClass(newColor)
-}
-
-// Change the quote based on the quote returned by pickQuote function
-function changeQuote(newQuote) {
-  $(".quote-text").html(newQuote)
-}
-
-// Change the imaged based on the quote returned by pickImg function
-function changeImg(newImg) {
-  $("#bunny-img").attr("src", newImg)
-}
-
-// Movement ***************************************************
+// Animation ******************************************************************
 
 // Define how the bunny will move
 function bunnyMove(){
@@ -234,6 +246,7 @@ function bunnyMove(){
 function bounceBunny(bunny) {
   $(bunny).addClass(animation.bounceOutDown).one(animation.finish, function() {
     $(this).removeClass(animation.bounceOutDown)
+    leafFall()
     updateBackground()
     $(bunny).addClass(animation.bounceInDown).one(animation.finish, function() {
       $(this).removeClass(animation.bounceInDown)
@@ -245,6 +258,7 @@ function bounceBunny(bunny) {
 function runBunny(bunny) {
   $(bunny).addClass(animation.bounceOutRight).one(animation.finish, function() {
     $(this).removeClass(animation.bounceOutRight)
+    leafMove()
     updateBackground()
     $(bunny).addClass(animation.bounceInLeft).one(animation.finish, function() {
       $(this).removeClass(animation.bounceInLeft)
@@ -252,9 +266,32 @@ function runBunny(bunny) {
   })
 }
 
-// Update background
+// Leaf movement
+function leafMove () {
+  if (state.clickTally === 9) {
+    leafLeft()
+  }
+  else {
+    leafFall()
+  }
+}
+
+function leafLeft() {
+  $(".leaf").removeClass("hidden").addClass(animation.fadeOutLeftBig).one(animation.finish, function() {
+    $(this).removeClass(animation.fadeOutLeftBig).addClass("hidden")
+  })
+}
+
+function leafFall() {
+  $(".leaf").removeClass("hidden").addClass(animation.fadeOutUpBig).one(animation.finish, function() {
+    $(this).removeClass(animation.fadeOutUpBig).addClass("hidden")
+  })
+}
+
+// Update background **********************************************************
+
 function updateBackground() {
-  state.clickTally = state.clickTally + 1
+  updateTally()
   let prevColor = state.color
   let newColor = pickColor(state.clickTally)
   let newQuote = pickQuote(state.clickTally)
@@ -265,5 +302,5 @@ function updateBackground() {
   changeQuote(newQuote)
   changeImg(newImg)
   revealImgs()
-  logColor(newColor)
+  updateColor(newColor)
 }
