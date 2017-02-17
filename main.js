@@ -21,7 +21,7 @@ const animation = {
 // On click events ************************************************************
 
 $(document).ready(function() {
-  $("#btn").on("click", function() {
+  $("#btn").on("click", function () {
     bunnyMove()
   });
 });
@@ -262,6 +262,7 @@ function runBunny(bunny) {
     updateBackground()
     $(bunny).addClass(animation.bounceInLeft).one(animation.finish, function() {
       $(this).removeClass(animation.bounceInLeft)
+      $("#btn").on("click")
     })
   })
 }
