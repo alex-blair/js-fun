@@ -29,6 +29,7 @@ $(document).ready(function() {
 // Click Tally ****************************************************************
 function updateTally() {
   state.clickTally = state.clickTally + 1
+  console.log(state.clickTally)
 }
 
 // Background colour **********************************************************
@@ -184,21 +185,22 @@ function changeImg(newImg) {
   $("#bunny-img").attr("src", newImg)
 }
 
-// // Show leaf images when bunny is falling
-// function leafAppear () {
-//   $("#leaves-lt").removeClass("hidden").addClass("animated fadeOutUp")
-//   $("#leaves-rt")
-// }
-
 // Check if it's time to reveal background images
-function revealImgs () {
-  if (state.clickTally === 8) {
-    appear()
+function revealImgs() {
+  if (state.clickTally === 3 || state.clickTally === 13) {
+    revealDoor()
+  }
+  else if (state.clickTally === 8 || state.clickTally === 18) {
+    revealSmiles()
   }
 }
 
 // Make hidden background images appear
-function appear() {
+function revealDoor(){
+  $("#door").removeClass("hidden")
+}
+
+function revealSmiles() {
   for (var i = 0; i < 7; i++) {
     $("#hidden-img-" + i).removeClass("hidden").addClass("animated fadeIn")
   }
@@ -206,13 +208,20 @@ function appear() {
 
 // Check if it's time to hide background images
 function hideImgs () {
-  if (state.clickTally === 9) {
-    hide()
+  if (state.clickTally === 4 || state.clickTally === 14) {
+    hideDoor()
+  }
+  else if (state.clickTally === 9 || state.clickTally === 19) {
+    hideSmiles()
   }
 }
 
 // Hide background images
-function hide() {
+function hideDoor() {
+  $("#door").addClass("hidden")
+}
+
+function hideSmiles() {
   for (var i = 0; i < 7; i++) {
     $("#hidden-img-" + i).removeClass("animated fadeIn").addClass("hidden")
   }
@@ -222,10 +231,13 @@ function hide() {
 
 // Change the style of the button
 function changeBtn () {
-  if (state.clickTally === 9) {
+  if (state.clickTally === 9 || state.clickTally === 19) {
     $("#btn").removeClass("btn-1").addClass("btn-2").html("Time for tea")
   }
-  else if (state.clickTally === 10) {
+  else if (state.clickTally === 3 || state.clickTally === 13) {
+    $("#btn").removeClass("btn-1").addClass("btn-3").html("")
+  }
+  else if (state.clickTally === 10 || state.clickTally === 20) {
     $("#btn").removeClass("btn-2").addClass("btn-1").html("Down the rabbit hole!")
   }
 }
@@ -234,7 +246,7 @@ function changeBtn () {
 
 // Define how the bunny will move
 function bunnyMove(){
-  if (state.clickTally === 9) {
+  if (state.clickTally === 9 || state.clickTally === 19) {
     runBunny(state.bunny)
   }
   else {
@@ -269,7 +281,7 @@ function runBunny(bunny) {
 
 // Leaf movement
 function leafMove () {
-  if (state.clickTally === 9) {
+  if (state.clickTally === 9 || state.clickTally === 19) {
     leafLeft()
   }
   else {
