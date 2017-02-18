@@ -16,6 +16,8 @@ const animation = {
   bounceOutRight: "animated bounceOutRight",
   fadeOutUpBig: "animated fadeOutUpBig",
   fadeOutLeftBig: "animated fadeOutLeftBig",
+  fadeIn: "animated fadeIn",
+  pulse: "animated pulse"
 }
 
 // On click events ************************************************************
@@ -202,7 +204,9 @@ function revealDoor(){
 
 function revealSmiles() {
   for (var i = 0; i < 7; i++) {
-    $("#hidden-img-" + i).removeClass("hidden").addClass("animated fadeIn")
+    $("#hidden-img-" + i).removeClass("hidden").addClass(animation.fadeIn).one(animation.finish, function() {
+      $(this).removeClass(animation.fadeIn).addClass(animation.pulse)
+    })
   }
 }
 
@@ -223,7 +227,7 @@ function hideDoor() {
 
 function hideSmiles() {
   for (var i = 0; i < 7; i++) {
-    $("#hidden-img-" + i).removeClass("animated fadeIn").addClass("hidden")
+    $("#hidden-img-" + i).removeClass("animated pulse").addClass("hidden")
   }
 }
 
@@ -231,11 +235,14 @@ function hideSmiles() {
 
 // Change the style of the button
 function changeBtn () {
-  if (state.clickTally === 9 || state.clickTally === 19) {
-    $("#btn").removeClass("btn-1").addClass("btn-2").html("Time for tea")
+  if (state.clickTally === 3 || state.clickTally === 13) {
+    $("#btn").removeClass("btn-1").addClass("btn-3").html("Through the door!")
   }
-  else if (state.clickTally === 3 || state.clickTally === 13) {
-    $("#btn").removeClass("btn-1").addClass("btn-3").html("")
+  else if (state.clickTally === 4 || state.clickTally === 14) {
+    $("#btn").removeClass("btn-3").addClass("btn-1").html("Down the rabbit hole!")
+  }
+  else if (state.clickTally === 9 || state.clickTally === 19) {
+    $("#btn").removeClass("btn-1").addClass("btn-2").html("Time for tea")
   }
   else if (state.clickTally === 10 || state.clickTally === 20) {
     $("#btn").removeClass("btn-2").addClass("btn-1").html("Down the rabbit hole!")
