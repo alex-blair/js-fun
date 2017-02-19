@@ -36,7 +36,6 @@ $(document).ready(function() {
   });
   $("#bunny-div").on("mouseover", bounce)
   $("#prop-div").on("mouseover", move)
-  $("#prop-div").on("click", empty)
 });
 
 
@@ -201,16 +200,16 @@ function changeImg(newImg) {
 
 // Check if it's time to reveal background images
 function revealImgs() {
-  if (state.clickTally === 10 || state.clickTally === 20) {
-    $("#prop").attr("src", "images/full-tea.png").removeClass("med-prop").addClass("small-prop")
-    revealCup()
-  }
   if (state.clickTally === 3 || state.clickTally === 13) {
     $("#prop").attr("src", "images/door.png").removeClass("med-prop").addClass("small-prop")
     revealDoor()
   }
   else if (state.clickTally === 8 || state.clickTally === 18) {
     revealSmiles()
+  }
+  else if (state.clickTally === 10 || state.clickTally === 20) {
+    $("#prop").attr("src", "images/full-tea.png").removeClass("small-prop").addClass("med-prop")
+    revealCup()
   }
 }
 
@@ -407,13 +406,6 @@ function leafFall() {
 }
 
 // Teacup animations
-
-// Empty
-function empty() {
-  if ($("#prop").hasClass("med-size")) {
-    $("#prop").attr("src", "images/empty-tea.png")
-  }
-}
 
 // Move the teacup
 function move() {
