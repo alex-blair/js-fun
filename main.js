@@ -18,7 +18,8 @@ const animation = {
   fadeOutLeftBig: "animated fadeOutLeftBig",
   fadeIn: "animated fadeIn",
   pulse: "animated pulse",
-  wobble: "wobble"
+  wobble: "animated wobble",
+  swing: "animated swing"
 }
 
 // On click events ************************************************************
@@ -34,6 +35,8 @@ $(document).ready(function() {
     bunnySmaller()
   });
   $("#bunny-div").on("mouseover", bounce)
+  $("#prop-div").on("mouseover", move)
+  $("#prop-div").on("click", empty)
 });
 
 
@@ -198,7 +201,12 @@ function changeImg(newImg) {
 
 // Check if it's time to reveal background images
 function revealImgs() {
+  if (state.clickTally === 10 || state.clickTally === 20) {
+    $("#prop").attr("src", "images/full-tea.png").removeClass("med-prop").addClass("small-prop")
+    revealCup()
+  }
   if (state.clickTally === 3 || state.clickTally === 13) {
+    $("#prop").attr("src", "images/door.png").removeClass("med-prop").addClass("small-prop")
     revealDoor()
   }
   else if (state.clickTally === 8 || state.clickTally === 18) {
@@ -207,8 +215,12 @@ function revealImgs() {
 }
 
 // Make hidden background images appear
-function revealDoor(){
-  $("#door").removeClass("hidden")
+function revealCup() {
+  $("#prop").removeClass("small-prop hidden").addClass("med-prop")
+}
+
+function revealDoor() {
+  $("#prop").removeClass("hidden")
 }
 
 function revealSmiles() {
@@ -221,6 +233,9 @@ function revealSmiles() {
 
 // Check if it's time to hide background images
 function hideImgs () {
+  if (state.clickTally === 1 || state.clickTally === 11 || state.clickTally === 21) {
+    hideCup()
+  }
   if (state.clickTally === 4 || state.clickTally === 14) {
     hideDoor()
   }
@@ -230,8 +245,12 @@ function hideImgs () {
 }
 
 // Hide background images
+function hideCup() {
+  $("#prop").addClass("hidden")
+}
+
 function hideDoor() {
-  $("#door").addClass("hidden")
+  $("#prop").addClass("hidden")
 }
 
 function hideSmiles() {
@@ -259,9 +278,10 @@ function bunnyBigger() {
         $("#img-lt").addClass("hidden")
     }
     else if ($(this).hasClass("small-size")) {
-        $(this).removeClass("wobble small-size").addClass("big-size")
+        $(this).removeClass("wobble small-size").addClass("double-big-size")
         $("#img-lt").addClass("hidden")
     }
+    revealBtn()
   })
 }
 
@@ -273,6 +293,9 @@ function bunnySmaller() {
     else if ($(this).hasClass("big-size")) {
         $(this).removeClass("wobble big-size").addClass("small-size")
     }
+    else if ($(this).hasClass("double-big-size")) {
+        $(this).removeClass("wobble double-big-size").addClass("small-size")
+    }
     revealBtn()
   })
 }
@@ -280,6 +303,9 @@ function bunnySmaller() {
 function revealBtn() {
   if ($("#bunny-img").hasClass("small-size")) {
     $("#btn").removeClass("hidden")
+  }
+  if ($("#bunny-img").hasClass("double-big-size")) {
+    $("#btn").addClass("hidden")
   }
 }
 
@@ -326,7 +352,7 @@ function bunnyMove(){
 // Stationary bounce
 function bounce() {
   $("#bunny-img").addClass(animation.bounce).one(animation.finish, function() {
-    $(this).removeClass(animation.bounce)
+    $("#bunny-img").removeClass(animation.bounce)
   })
 }
 
@@ -377,6 +403,22 @@ function leafLeft() {
 function leafFall() {
   $(".leaf").removeClass("hidden").addClass(animation.fadeOutUpBig).one(animation.finish, function() {
     $(this).removeClass(animation.fadeOutUpBig).addClass("hidden")
+  })
+}
+
+// Teacup animations
+
+// Empty
+function empty() {
+  if ($("#prop").hasClass("med-size")) {
+    $("#prop").attr("src", "images/empty-tea.png")
+  }
+}
+
+// Move the teacup
+function move() {
+    $("#prop").addClass(animation.swing).one(animation.finish, function() {
+      $("#prop").removeClass(animation.swing)
   })
 }
 

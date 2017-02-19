@@ -47,7 +47,7 @@ html, body {
   display: flex;
 }
 
-#door {
+#prop {
   padding-top: 2rem;
 }
 
@@ -121,6 +121,10 @@ html, body {
 }
 
 .big-size {
+  width: 100%;
+}
+
+.double-big-size {
   width: 100%;
 }
 
@@ -224,8 +228,12 @@ html, body {
   padding-right: 15%;
 }
 
-.small-door {
+.small-prop {
   width: 40%;
+}
+
+.med-prop {
+  width: 60%;
 }
 
 /*Text************************************************8************************/
