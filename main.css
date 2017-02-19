@@ -1,4 +1,4 @@
-/*Sections*/
+/*Sections*********************************************************************/
 
 html, body {
   height: 100%;
@@ -43,14 +43,19 @@ html, body {
 }
 
 .images-box {
-  padding: 2rem 0 .5rem 0;
+  padding: 2rem 0 1rem 0;
+  display: flex;
+}
+
+#door {
+  padding-top: 2rem;
 }
 
 .text-box {
   padding-bottom: 4rem;
 }
 
-/*Background colors*/
+/*Background colors************************************************************/
 
 .color-1 {
   background-color: #f0b7b9;
@@ -92,23 +97,39 @@ html, body {
   background-color: #A2CD9D;
 }
 
-/*Images*/
+/*Images***********************************************************************/
+
+.hidden {
+  visibility: hidden;
+}
+
+/*Bunny image*/
 
 #bunny-img {
   justify-content: center;
   align-items: center;
-  width: 60%;
   -webkit-animation-duration: 1s;
-  /*-webkit-animation-delay: 1s;*/
-  /*-webkit-animation-iteration-count: 1;*/
 }
 
+.small-size {
+  padding-top: 4rem;
+  width: 40%;
+}
+
+.med-size {
+  width: 80%;
+}
+
+.big-size {
+  width: 100%;
+}
+
+/*Side images*/
 @media screen and (min-width: 400px) {
     #hidden-img-1, #hidden-img-2, #hidden-img-3, #hidden-img-4, #hidden-img-5, #hidden-img-6, #leaf-lt, #leaf-rt {
     display: none;
   }
 }
-
 
 @media screen and (min-width: 750px) {
   #hidden-img-1 {
@@ -135,7 +156,7 @@ html, body {
 
   #hidden-img-4 {
     -webkit-animation-duration: 2.5s;
-    -webkit-animation-delay: 3s;
+    -webkit-animation-delay: 1s;
     width: 80%;
     display: flex;
     float: right;
@@ -150,7 +171,7 @@ html, body {
 
   #hidden-img-6 {
     -webkit-animation-duration: 2.5s;
-    -webkit-animation-delay: 3.5s;
+    -webkit-animation-delay: 0.5s;
     width: 45%;
     display: flex;
     float: right;
@@ -164,33 +185,50 @@ html, body {
   -webkit-animation-duration: 3s;
 }
 
+/*Transition images*/
+
   #leaf-lt {
-    z-index: 0;
     -webkit-animation-duration: 2s;
-    display: block;
+    display: flex;
   }
 
   #leaf-rt {
-    z-index: 0;
     -webkit-animation-duration: 2s;
-    display: block;
+    display: flex;
   }
 }
 
+/*Eat-me-drink-me*/
+
+#lvl-3 {
+  display: flex;
+  padding-top: 1rem;
+}
+
+#lt-div {
+  width: 50%;
+}
+
+#rt-div {
+  width: 50%;
+}
+
+#img-lt {
+  width: 60%;
+  padding-left: 25%;
+
+}
+
+#img-rt {
+  width: 35%;
+  padding-right: 15%;
+}
+
 .small-door {
-  width: 5%;
+  width: 40%;
 }
 
-.smaller {
-  size: 20%;
-}
-
-.hidden {
-  visibility: hidden;
-}
-
-/*Text*/
-
+/*Text************************************************8************************/
 
 @media screen and (min-width:400px) {
   .title-text {
@@ -236,7 +274,7 @@ html, body {
   color: white;
 }
 
-/*Button*/
+/*Buttons**********************************************************************/
 
 #btn {
   border-color: transparent;

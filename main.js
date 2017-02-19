@@ -17,7 +17,8 @@ const animation = {
   fadeOutUpBig: "animated fadeOutUpBig",
   fadeOutLeftBig: "animated fadeOutLeftBig",
   fadeIn: "animated fadeIn",
-  pulse: "animated pulse"
+  pulse: "animated pulse",
+  wobble: "wobble"
 }
 
 // On click events ************************************************************
@@ -26,7 +27,15 @@ $(document).ready(function() {
   $("#btn").on("click", function () {
     bunnyMove()
   });
+  $("#lt-div").click(function() {
+    bunnyBigger()
+  });
+  $("#rt-div").click(function() {
+    bunnySmaller()
+  });
+  $("#bunny-div").on("mouseover", bounce)
 });
+
 
 // Click Tally ****************************************************************
 function updateTally() {
@@ -146,37 +155,37 @@ function pickImg(clickTally) {
   let clickTallyLoopImg = clickTally % 10
   switch(clickTallyLoopImg) {
     case 0:
-      newImg = "bunny.png"
+      newImg = "images/bunny.png"
       break;
     case 1:
-      newImg = "bunny.png"
+      newImg = "images/bunny.png"
       break;
     case 2:
-      newImg = "bunny.png"
+      newImg = "images/bunny.png"
       break;
     case 3:
-      newImg = "bunny-mon.png"
+      newImg = "images/bunny-mon.png"
       break;
     case 4:
-      newImg = "bunny-bow.png"
+      newImg = "images/bunny-bow.png"
       break;
     case 5:
-      newImg = "bunny-nose.png"
+      newImg = "images/bunny-nose.png"
       break;
     case 6:
-      newImg = "bunny-hat.png"
+      newImg = "images/bunny-hat.png"
       break;
     case 7:
-      newImg = "bunny-coat.png"
+      newImg = "images/bunny-coat.png"
       break;
     case 8:
-      newImg = "bunny-coat.png"
+      newImg = "images/bunny-coat.png"
       break;
     case 9:
-      newImg = "bunny.png"
+      newImg = "images/bunny.png"
       break;
     default:
-      newImg = "bunny.png"
+      newImg = "images/bunny.png"
       break;
   }
   return newImg;
@@ -231,15 +240,68 @@ function hideSmiles() {
   }
 }
 
+// Eat-me-drink-me ************************************************************
+
+function addPotions() {
+  $("#lt-div").html('<img id="img-lt" src="images/eat-me.png" alt=""/>')
+  $("#rt-div").html('<img id="img-rt" src="images/drink-me.png" alt=""/>')
+}
+
+function removePotions(){
+  $("#lt-div").html('')
+  $("#rt-div").html('')
+}
+
+function bunnyBigger() {
+  $("#bunny-img").addClass(animation.wobble).one(animation.finish, function() {
+    if ($(this).hasClass("med-size")) {
+        $(this).removeClass("wobble med-size").addClass("big-size")
+        $("#img-lt").addClass("hidden")
+    }
+    else if ($(this).hasClass("small-size")) {
+        $(this).removeClass("wobble small-size").addClass("big-size")
+        $("#img-lt").addClass("hidden")
+    }
+  })
+}
+
+function bunnySmaller() {
+  $("#bunny-img").addClass(animation.wobble).one(animation.finish, function() {
+    if ($(this).hasClass("med-size")) {
+        $(this).removeClass("wobble med-size").addClass("small-size")
+    }
+    else if ($(this).hasClass("big-size")) {
+        $(this).removeClass("wobble big-size").addClass("small-size")
+    }
+    revealBtn()
+  })
+}
+
+function revealBtn() {
+  if ($("#bunny-img").hasClass("small-size")) {
+    $("#btn").removeClass("hidden")
+  }
+}
+
+// Return bunny to normal size when it levels eat-me-drink-me area
+function normalSize() {
+  if ($("#bunny-img").hasClass("small-size")) {
+    $("#bunny-img").removeClass("small-size").addClass("med-size")
+  }
+}
+
 // Buttons ********************************************************************
 
 // Change the style of the button
 function changeBtn () {
   if (state.clickTally === 3 || state.clickTally === 13) {
-    $("#btn").removeClass("btn-1").addClass("btn-3").html("Through the door!")
+    $("#btn").removeClass("btn-1").addClass("btn-3 hidden").html("Through the door!")
+    addPotions()
   }
   else if (state.clickTally === 4 || state.clickTally === 14) {
     $("#btn").removeClass("btn-3").addClass("btn-1").html("Down the rabbit hole!")
+    removePotions()
+    normalSize()
   }
   else if (state.clickTally === 9 || state.clickTally === 19) {
     $("#btn").removeClass("btn-1").addClass("btn-2").html("Time for tea")
@@ -253,7 +315,7 @@ function changeBtn () {
 
 // Define how the bunny will move
 function bunnyMove(){
-  if (state.clickTally === 9 || state.clickTally === 19) {
+  if (state.clickTally === 3 || state.clickTally === 9 || state.clickTally === 13 || state.clickTally === 19) {
     runBunny(state.bunny)
   }
   else {
@@ -261,27 +323,37 @@ function bunnyMove(){
   }
 }
 
+// Stationary bounce
+function bounce() {
+  $("#bunny-img").addClass(animation.bounce).one(animation.finish, function() {
+    $(this).removeClass(animation.bounce)
+  })
+}
+
 // Bounce movement
 function bounceBunny(bunny) {
+  $("#btn").attr("disabled", true)
   $(bunny).addClass(animation.bounceOutDown).one(animation.finish, function() {
     $(this).removeClass(animation.bounceOutDown)
     leafFall()
     updateBackground()
     $(bunny).addClass(animation.bounceInDown).one(animation.finish, function() {
       $(this).removeClass(animation.bounceInDown)
+      $("#btn").attr("disabled", false)
     })
   })
 }
 
 // Running movement
 function runBunny(bunny) {
+  $("#btn").attr("disabled")
   $(bunny).addClass(animation.bounceOutRight).one(animation.finish, function() {
     $(this).removeClass(animation.bounceOutRight)
     leafMove()
     updateBackground()
     $(bunny).addClass(animation.bounceInLeft).one(animation.finish, function() {
       $(this).removeClass(animation.bounceInLeft)
-      $("#btn").on("click")
+      $("#btn").removeAttr("disabled")
     })
   })
 }
