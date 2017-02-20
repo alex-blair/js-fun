@@ -291,9 +291,11 @@ function bunnySmaller() {
     }
     else if ($(this).hasClass("big-size")) {
         $(this).removeClass("wobble big-size").addClass("small-size")
+        $("#img-rt").addClass("hidden")
     }
     else if ($(this).hasClass("double-big-size")) {
         $(this).removeClass("wobble double-big-size").addClass("small-size")
+        $("#img-rt").addClass("hidden")
     }
     revealBtn()
   })
